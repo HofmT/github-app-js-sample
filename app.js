@@ -6,6 +6,8 @@ import { createNodeMiddleware } from '@octokit/webhooks'
 
 // Load environment variables from .env file
 dotenv.config()
+console.log("test");
+const;
 
 // Set configured values
 const appId = process.env.APP_ID
