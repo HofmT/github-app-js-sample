@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "server": "node app.js",
-    "lint": "standard",
-    "test": "node test"
+    "lint": "standard"
   },
   "devDependencies": {
     "smee-client": "^2.0.1",
