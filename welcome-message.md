@@ -4,7 +4,7 @@ Hi there! We noticed this is your first contribution to this repository. Thank y
 
 Here are a few things that might help you get started:
 
-- 📖 Check out our [contributing guidelines](https://docs.github.com/en/get-started/quickstart/contributing-to-projects)
+- 📖 Check out our [contributing guidelines](CONTRIBUTING.md)
 - 🔍 Make sure your PR addresses an existing issue or discusses the changes with maintainers
 - ✅ Don't forget to check that your code follows our style guide
 - 🧪 Add tests if you're introducing new functionality

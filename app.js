@@ -66,7 +66,7 @@ app.webhooks.on('pull_request.opened', async ({ octokit, payload }) => {
     })
 
     // Use welcome message for first-time contributors, regular message for others
-    const isFirstContribution = pullRequests.length === 1
+    const isFirstContribution = pullRequests.length === 0
     const messageToSend = isFirstContribution ? WELCOME_MESSAGE : GREETING_MESSAGE
 
     console.log(`${isFirstContribution ? 'First-time contributor' : 'Regular contributor'} detected for user: ${payload.pull_request.user.login}`)
