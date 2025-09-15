@@ -23,6 +23,7 @@ Version: ${version}
 
 ${messageTemplate}`
 
+
 // Create an authenticated Octokit client authenticated as a GitHub App
 const app = new App({
   appId,
@@ -42,6 +43,7 @@ const { data } = await app.octokit.request('/app')
 
 // Read more about custom logging: https://github.com/octokit/core.js#logging
 app.octokit.log.debug(`Authenticated as '${data.name}'`)
+app.octokit.log.debug("Completed auth now proceeding with subscription");
 
 // Subscribe to the "pull_request.opened" webhook event
 app.webhooks.on('pull_request.opened', async ({ octokit, payload }) => {
