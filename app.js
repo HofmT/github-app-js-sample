@@ -14,6 +14,7 @@ const privateKey = fs.readFileSync(privateKeyPath, 'utf8')
 const secret = process.env.WEBHOOK_SECRET
 const enterpriseHostname = process.env.ENTERPRISE_HOSTNAME
 const messageForNewPRs = fs.readFileSync('./message.md', 'utf8')
+const welcomeMessageForNewContributors = fs.readFileSync('./welcome-message.md', 'utf8')
 const { name, version } = JSON.parse(fs.readFileSync('./package.json', 'utf8'))
 
 const GREETING_MESSAGE = `\`\`\`
@@ -21,7 +22,14 @@ Package: ${name}
 Version: ${version}
 \`\`\`
 
-${messageTemplate}`
+${messageForNewPRs}`
+
+const WELCOME_MESSAGE = `\`\`\`
+Package: ${name}
+Version: ${version}
+\`\`\`
+
+${welcomeMessageForNewContributors}`
 
 
 // Create an authenticated Octokit client authenticated as a GitHub App
@@ -49,11 +57,25 @@ app.octokit.log.debug("Completed auth now proceeding with subscription");
 app.webhooks.on('pull_request.opened', async ({ octokit, payload }) => {
   console.log(`Received a pull request event for #${payload.pull_request.number}`)
   try {
+    // Check if this is the user's first contribution to the repository
+    const { data: pullRequests } = await octokit.rest.pulls.list({
+      owner: payload.repository.owner.login,
+      repo: payload.repository.name,
+      creator: payload.pull_request.user.login,
+      state: 'all'
+    })
+
+    // Use welcome message for first-time contributors, regular message for others
+    const isFirstContribution = pullRequests.length === 0
+    const messageToSend = isFirstContribution ? WELCOME_MESSAGE : GREETING_MESSAGE
+
+    console.log(`${isFirstContribution ? 'First-time contributor' : 'Regular contributor'} detected for user: ${payload.pull_request.user.login}`)
+
     await octokit.rest.issues.createComment({
       owner: payload.repository.owner.login,
       repo: payload.repository.name,
       issue_number: payload.pull_request.number,
-      body: GREETING_MESSAGE
+      body: messageToSend
     })
   } catch (error) {
     if (error.response) {
