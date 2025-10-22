@@ -2,7 +2,6 @@ import dotenv from 'dotenv'
 import fs from 'fs'
 import http from 'http'
 import { Octokit, App } from 'octokit'
-import { createNodeMiddleware } from '@octokit/webhooks'
 
 // Load environment variables from .env file
 dotenv.config()

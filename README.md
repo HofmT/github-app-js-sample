@@ -4,7 +4,6 @@ This sample app showcases how webhooks can be used with a GitHub App's installat
 
 ## Requirements
 
-- Node.js 20 or higher
 - A GitHub App subscribed to **Pull Request** events and with the following permissions:
   - Pull requests: Read & write
   - Metadata: Read-only
