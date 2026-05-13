@@ -18,4 +18,4 @@ jobs:
         node-version: 18
         cache: 'npm'
     - run: npm install standard
-    - run: npm run lint
+    - run: npm run lint and lint2
